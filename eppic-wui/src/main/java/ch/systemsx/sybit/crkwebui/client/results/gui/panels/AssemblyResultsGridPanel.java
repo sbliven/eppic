@@ -9,6 +9,7 @@ import ch.systemsx.sybit.crkwebui.client.commons.appdata.ApplicationContext;
 import ch.systemsx.sybit.crkwebui.client.commons.events.SelectAssemblyResultsRowEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.events.ShowAssembliesEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.events.ShowAssemblyViewerEvent;
+import ch.systemsx.sybit.crkwebui.client.commons.events.ShowDiagramViewerEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.events.ShowInterfacesOfAssemblyDataEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.events.ShowThumbnailEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.events.ShowViewerEvent;
@@ -16,15 +17,18 @@ import ch.systemsx.sybit.crkwebui.client.commons.events.WindowHideEvent;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.SelectAssemblyResultsRowHandler;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.ShowAssembliesHandler;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.ShowAssemblyViewerHandler;
+import ch.systemsx.sybit.crkwebui.client.commons.handlers.ShowDiagramViewerHandler;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.ShowThumbnailHandler;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.ShowViewerHandler;
 import ch.systemsx.sybit.crkwebui.client.commons.handlers.WindowHideHandler;
+import ch.systemsx.sybit.crkwebui.client.commons.managers.DiagramViewerRunner;
 import ch.systemsx.sybit.crkwebui.client.commons.managers.EventBusManager;
 import ch.systemsx.sybit.crkwebui.client.commons.managers.ViewerRunner;
 import ch.systemsx.sybit.crkwebui.client.commons.util.EscapedStringGenerator;
 import ch.systemsx.sybit.crkwebui.client.results.data.AssemblyItemModel;
 import ch.systemsx.sybit.crkwebui.client.results.data.AssemblyItemModelProperties;
 import ch.systemsx.sybit.crkwebui.client.results.data.InterfaceItemModel;
+import ch.systemsx.sybit.crkwebui.client.results.gui.cells.AssemblyDiagramCell;
 import ch.systemsx.sybit.crkwebui.client.results.gui.cells.AssemblyMethodCallCell;
 import ch.systemsx.sybit.crkwebui.client.results.gui.cells.AssemblyThumbnailCell;
 import ch.systemsx.sybit.crkwebui.client.results.gui.cells.InterfacesButtonCell;
@@ -88,6 +92,7 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 	private static final AssemblyItemModelProperties props = GWT.create(AssemblyItemModelProperties.class);
 	
 	ColumnConfig<AssemblyItemModel, String> thumbnailColumn;
+	ColumnConfig<AssemblyItemModel, String> diagramColumn;
 	ColumnConfig<AssemblyItemModel, String> warningsColumn;
 	SummaryColumnConfig<AssemblyItemModel, Integer> clusterIdColumn;
 	
@@ -151,6 +156,8 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		//configs.add(getCompositionColumn());
 		thumbnailColumn = getThumbnailColumn();
 		configs.add(thumbnailColumn);
+		diagramColumn = getDiagramColumn();
+		configs.add(diagramColumn);		
 		configs.add(getIdentifierColumn()); //what is displayed in the table (same as id)
 		configs.add(getMmSizeColumn());
 		configs.add(getStoichiometryColumn());
@@ -224,16 +231,6 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		return numInterfacesColumn; 
 	}	
 	
-	/*private SummaryColumnConfig<AssemblyItemModel, String> getDetailsColumn() {
-		SummaryColumnConfig<AssemblyItemModel, String> column = 
-				//new SummaryColumnConfig<AssemblyItemModel, String>(props.identifier());
-				new SummaryColumnConfig<AssemblyItemModel, String>(props.detailsButtonText()); 
-		column.setCell(new InterfacesButtonCell());
-		fillColumnSettings(column, "details"); 
-		column.setResizable(false);
-		column.setSortable(false);
-		return column; 
-	}*/
 	
 	
 	private SummaryColumnConfig<AssemblyItemModel, String> getSymmetryColumn() {
@@ -273,7 +270,6 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 					Number value,
 					Map<ValueProvider<? super AssemblyItemModel, ?>, Number> data) {
 				return SafeHtmlUtils.fromTrustedString(
-						//value.intValue() > 1 ? "(" + value.intValue() + " Interfaces)" : "(1 Interface)");
 						value.intValue() > 1 ? "(" + value.intValue() + " Assemblies)" : "(1 Assembly)");
 			}
 		});
@@ -285,6 +281,46 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		return thumbnailColumn;
 	}
 
+	
+	private SummaryColumnConfig<AssemblyItemModel, String> getDiagramColumn(){
+		//this gets executed only once! so... not the best location here.
+		int numinterfaces = 0;
+		List<InterfaceCluster> clusters = ApplicationContext.getPdbInfo().getInterfaceClusters();
+		for(InterfaceCluster ic : clusters){
+			numinterfaces=+ ic.getInterfaces().size();
+		}
+		//String thumbnailtext = "no text";
+		//if (numinterfaces != 0)
+		//	thumbnailtext = "text here";
+		
+		
+		//SummaryColumnConfig<AssemblyItemModel, String> diagramColumn = 
+				//new SummaryColumnConfig<AssemblyItemModel, String>(props.thumbnailUrl());
+		
+		SummaryColumnConfig<AssemblyItemModel, String> diagramColumn = null;
+		if(numinterfaces != 0)
+			diagramColumn = new SummaryColumnConfig<AssemblyItemModel, String>(props.thumbnailUrl());
+		else
+			diagramColumn = new SummaryColumnConfig<AssemblyItemModel, String>(null);
+
+		diagramColumn.setSummaryType(new SummaryType.CountSummaryType<String>());
+		diagramColumn.setSummaryRenderer(new SummaryRenderer<AssemblyItemModel>() {
+
+			@Override
+			public SafeHtml render(
+					Number value,
+					Map<ValueProvider<? super AssemblyItemModel, ?>, Number> data) {
+				return SafeHtmlUtils.fromTrustedString(
+						value.intValue() > 1 ? "(" + value.intValue() + " Assemblies)" : "(1 Assembly)");
+			}
+		});
+		
+		diagramColumn.setCell(new AssemblyDiagramCell());
+		fillColumnSettings(diagramColumn, "thumbnail");
+		diagramColumn.setResizable(false);
+
+		return diagramColumn;
+	}	
 
 	
 	/**
@@ -295,11 +331,9 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 	{
 		final Grid<AssemblyItemModel> resultsGrid = new Grid<AssemblyItemModel>(resultsStore, resultsColumnModel);
 		resultsGrid.setBorders(false);
-		//resultsGrid.setView(clustersView);
 		resultsGrid.getView().setStripeRows(true);
 		resultsGrid.getView().setColumnLines(false);
 		resultsGrid.getView().setForceFit(true);
-		//resultsGrid.setContextMenu(new ResultsPanelContextMenu());
 		
 		resultsGrid.getView().setEmptyText(AppPropertiesManager.CONSTANTS.no_interfaces_found_text());
 		
@@ -323,14 +357,7 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		};
 		
 		new QuickTip(resultsGrid);
-		// Since upgrade to GXT 3.1, the "blank tooltip" issue is gone (see CRK-148 in jira 
-		// and http://www.sencha.com/forum/showthread.php?194571-Use-of-QuickTip-leads-to-empty-tooltips)
-		// Thus the code below (needed to fix the issue in 3.0.1) is not needed anymore
-		//QuickTip gridQT = new QuickTip(resultsGrid);
-		//Bug-Fix in GXt 3.0.1
-		//To fix the issue of blank Tooltips we set the delay
-		//gridQT.setQuickShowInterval(0);
-		//gridQT.getToolTipConfig().setShowDelay(0);
+
 		
 		return resultsGrid;
 	}
@@ -393,20 +420,6 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		resultsGrid.getView().refresh(true);
 	}
 	
-	/**
-	 * 
-	 */
-	/*private void onClustersRadioValueChange(boolean value){
-		if (value) {
-			clustersView.groupBy(clusterIdColumn);
-		} else{
-			clustersView.groupBy(null);
-			resultsStore.addSortInfo(0, new StoreSortInfo<AssemblyItemModel>(props.interfaceId(), SortDir.ASC));
-			//Hide cluster id column
-			resultsGrid.getColumnModel().getColumn(0).setHidden(true);
-			resultsGrid.getView().refresh(true);
-		}
-	}*/
 
 	/**
 	 * Creates combobox used to select molecular viewer.
@@ -489,14 +502,6 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 		return viewerTypeDescription;
 	}
 	
-	/**
-	 * sets the value of the cluster similar interfaces radio
-	 * @param value
-	 */
-	/*public void setClustersRadioValue(boolean value){
-		clustersViewButton.setValue(value);
-		onClustersRadioValueChange(value);
-	}*/
 	
 	/**
 	 * Adjusts size of the results grid based on the current screen size and
@@ -533,19 +538,9 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 			@Override
 			public void onShowAssemblies(ShowAssembliesEvent event) {
 				refreshResultsGrid();	
-				//displayResultView(event.getPdbScoreItem(), ResultsPanel.ASSEMBLIES_VIEW);
-				//displayResultView(event.getPdbScoreItem(), ResultsPanel.ASSEMBLIES_VIEW);
 			}
 		});
-		
-		/*EventBusManager.EVENT_BUS.addHandler(UncheckClustersRadioEvent.TYPE, new UncheckClustersRadioHandler() {
-			
-			@Override
-			public void onUncheckClustersRadio(UncheckClustersRadioEvent event) {
-				setClustersRadioValue(false);
-				
-			}
-		});*/
+
 		
 		EventBusManager.EVENT_BUS.addHandler(ShowAssemblyViewerEvent.TYPE, new ShowAssemblyViewerHandler() {
 			
@@ -555,6 +550,15 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 				ViewerRunner.runViewerAssembly(String.valueOf(resultsGrid.getSelectionModel().getSelectedItem().getAssemblyId()));
 			}
 		}); 
+		
+		EventBusManager.EVENT_BUS.addHandler(ShowDiagramViewerEvent.TYPE, new ShowDiagramViewerHandler() {
+			
+			@Override
+			public void onShowDiagramViewer(ShowDiagramViewerEvent event) 
+			{
+				DiagramViewerRunner.runViewerAssembly(String.valueOf(resultsGrid.getSelectionModel().getSelectedItem().getAssemblyId()));
+			}
+		});		
 		
 		EventBusManager.EVENT_BUS.addHandler(ShowThumbnailEvent.TYPE, new ShowThumbnailHandler() {
 			

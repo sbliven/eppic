@@ -17,7 +17,7 @@ import org.jgrapht.UndirectedGraph;
 import eppic.assembly.Assembly;
 import eppic.assembly.ChainVertex;
 import eppic.assembly.InterfaceEdge;
-import eppic.assembly.Stoichiometry;
+import eppic.assembly.SubAssembly;
 
 
 public class PymolRunner {
@@ -140,12 +140,12 @@ public class PymolRunner {
 			pngFiles[i] = new File(mmcifFile.getParent(),base+"."+DEF_TN_WIDTHS[i]+"x"+DEF_TN_HEIGHTS[i]+".png");
 		}
 
-		Set<Stoichiometry> uniqueStoich = a.getStoichiometrySet().getUniqueStoichiometries();
-
+		List<List<SubAssembly>> groupedSubAssemblies = a.getAssemblyGraph().getSubAssembliesGroupedByStoichiometries();
+		
 		List<String> chains = new ArrayList<String>();
 		List<String> colors = new ArrayList<String>();
-		for( Stoichiometry stoich : uniqueStoich) {
-			UndirectedGraph<ChainVertex, InterfaceEdge> g = a.getFirstRelevantConnectedComponent(stoich);
+		for( List<SubAssembly> group : groupedSubAssemblies) {
+			UndirectedGraph<ChainVertex, InterfaceEdge> g = group.get(0).getConnectedGraph();
 			// the same identifiers given in Assembly.writeToMmCifFile()
 			for (ChainVertex v:g.vertexSet()) {
 
