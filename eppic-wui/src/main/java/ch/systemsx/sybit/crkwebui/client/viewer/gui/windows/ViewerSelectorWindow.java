@@ -33,7 +33,7 @@ public class ViewerSelectorWindow extends ResizableWindow{
 	public ViewerSelectorWindow(WindowData windowData) {
 		super(WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, windowData);
 		
-		this.setHeadingHtml(AppPropertiesManager.CONSTANTS.viewer_window_title());
+		this.setHeading(AppPropertiesManager.CONSTANTS.viewer_window_title());
 		this.setHideOnButtonClick(true);
 		this.setModal(true);
 		this.setBlinkModal(true);

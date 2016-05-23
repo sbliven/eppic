@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>com.sencha.gxt</groupId>
 			<artifactId>gxt</artifactId>
-			<version>3.1.1</version>
+			<version>4.0.0</version>
 			<!-- because hibernate-validator has a subdependency on javax.validation-api 1.1, it causes a clash with
 			     gwt-user and gxt (both depending on validation-api 1.0). It needs to be excluded here. 
 			-->
@@ -157,7 +157,7 @@
 		<dependency>
 			<groupId>com.gwtplatform</groupId>
 			<artifactId>gwtp-processors</artifactId>
-			<version>1.2.1</version>
+			<version>1.5.3</version>
 		</dependency>
 		<!--
 		<dependency>
@@ -220,6 +220,7 @@
 				</executions>
 				<configuration>
 					<runTarget>index.html</runTarget>
+					<extraJvmArgs>-Xmx2g</extraJvmArgs>
 				</configuration>
 			</plugin>
 			<plugin>

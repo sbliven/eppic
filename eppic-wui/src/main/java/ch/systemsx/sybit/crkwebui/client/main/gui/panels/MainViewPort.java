@@ -312,7 +312,7 @@ public class MainViewPort extends BorderLayoutContainer
 		String alignmentWindowTitle = AppPropertiesManager.CONSTANTS.alignment_window_title();
 		alignmentWindowTitle = alignmentWindowTitle.replaceFirst("%s", chainCluster.getRepChain());
 		alignmentWindowTitle = alignmentWindowTitle.replaceFirst("%s", chainCluster.getRefUniProtId());
-		alignmentsWindow.setHeadingHtml(EscapedStringGenerator.generateEscapedString(alignmentWindowTitle));
+		alignmentsWindow.setHeading(EscapedStringGenerator.generateEscapedString(alignmentWindowTitle));
 		alignmentsWindow.setVisible(true);
 
 		//called beacuse of the bug in GXT 2.2.3
@@ -343,7 +343,7 @@ public class MainViewPort extends BorderLayoutContainer
 		homologsWindow.setPagePosition(xPosition, yPosition);
 
 		String homologsWindowTitle = AppPropertiesManager.CONSTANTS.homologs_window_title();
-		homologsWindow.setHeadingHtml(EscapedStringGenerator.generateEscapedString(homologsWindowTitle));
+		homologsWindow.setHeading(EscapedStringGenerator.generateEscapedString(homologsWindowTitle));
 		homologsWindow.setVisible(true);
 	}
 	

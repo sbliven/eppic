@@ -99,7 +99,7 @@ public class SequenceInfoPanel extends FieldSet
 	private ToolTip createHomologsInfoTooltip() 
 	{
 		ToolTipConfig toolTipConfig = new ToolTipConfig();  
-		toolTipConfig.setTitleHtml(AppPropertiesManager.CONSTANTS.homologs_panel_query_warnings_title());
+		toolTipConfig.setTitle(AppPropertiesManager.CONSTANTS.homologs_panel_query_warnings_title());
 		toolTipConfig.setMouseOffsetX(0);
 		toolTipConfig.setMouseOffsetY(0);
 		toolTipConfig.setCloseable(true); 
@@ -136,7 +136,7 @@ public class SequenceInfoPanel extends FieldSet
 			fullHeading = fullHeading+" ("+AppPropertiesManager.CONSTANTS.info_panel_uniprot() +" " +
 					EscapedStringGenerator.generateEscapedString(uniprot_version)+ ")";
 
-		this.setHeadingHtml(
+		this.setHeading(
 				StyleGenerator.defaultFontStyleString(fullHeading));
 	}
 

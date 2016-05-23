@@ -27,8 +27,8 @@ public class ImageWithTooltip extends Image
 	{
 		super(source);
 		ToolTipConfig config = new ToolTipConfig();
-		config.setTitleHtml(title);
-	    config.setBodyHtml(template);
+		config.setTitle(title);
+	    config.setBody(template);
 	    config.setTrackMouse(true);
 		
 	    new ToolTip(this, config);

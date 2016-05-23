@@ -62,7 +62,7 @@ public class OptionsInputPanel extends FieldSet
 	{
 		List<String> searchModeDefaultList = applicationSettings.getSearchModeList();
 		
-		this.setHeadingHtml(StyleGenerator.defaultFontStyleString(AppPropertiesManager.CONSTANTS.input_advanced()));
+		this.setHeading(StyleGenerator.defaultFontStyleString(AppPropertiesManager.CONSTANTS.input_advanced()));
 		this.setCollapsible(true);
 		this.setBorders(false);
 			
@@ -76,7 +76,7 @@ public class OptionsInputPanel extends FieldSet
 	 */
 	private ToolTipConfig createToolTipConfig(String text){
 		ToolTipConfig config = new ToolTipConfig();
-	    config.setBodyHtml(StyleGenerator.defaultFontStyle(text));
+	    config.setBody(StyleGenerator.defaultFontStyle(text));
 	    config.setMouseOffsetY(0);
 	    config.setAnchor(Side.LEFT);	    
 	    return config;
@@ -92,7 +92,7 @@ public class OptionsInputPanel extends FieldSet
 	private void createAlignmentsParametersPanel(List<String> searchModeDefaultList)
 	{
 		FieldSet alignmentsParametersFieldSet = new FieldSet();
-		alignmentsParametersFieldSet.setHeadingHtml(
+		alignmentsParametersFieldSet.setHeading(
 				StyleGenerator.defaultFontStyleString(AppPropertiesManager.CONSTANTS.parameters_allignment()));
 		alignmentsParametersFieldSet.addStyleName("eppic-rounded-border");
 		

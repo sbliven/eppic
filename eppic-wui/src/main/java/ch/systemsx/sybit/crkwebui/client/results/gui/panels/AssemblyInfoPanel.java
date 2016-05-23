@@ -26,9 +26,9 @@ public class AssemblyInfoPanel extends FieldSet {
 	
 	public AssemblyInfoPanel(PdbInfo pdbInfo){
 		
-		//this.setHeadingHtml(StyleGenerator.defaultFontStyleString(
+		//this.setHeading(StyleGenerator.defaultFontStyleString(
 		//		AppPropertiesManager.CONSTANTS.info_panel_assembly_info()));
-		this.setHeadingHtml("General Information");
+		this.setHeading("General Information");
 		 
 		this.setBorders(true);
 		this.setWidth(PANEL_WIDTH);

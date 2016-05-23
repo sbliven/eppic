@@ -74,7 +74,7 @@ public class MyJobsPanel extends ContentPanel
 
 	public MyJobsPanel()
 	{
-		this.setHeadingHtml(StyleGenerator.defaultFontStyle(AppPropertiesManager.CONSTANTS.myjobs_panel_head()));
+		this.setHeading(StyleGenerator.defaultFontStyle(AppPropertiesManager.CONSTANTS.myjobs_panel_head()));
 		
 		VerticalLayoutContainer mainContainer = new VerticalLayoutContainer();
 

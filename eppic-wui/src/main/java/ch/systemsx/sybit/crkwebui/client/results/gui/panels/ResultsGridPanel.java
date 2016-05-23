@@ -683,8 +683,8 @@ public class ResultsGridPanel extends VerticalLayoutContainer
 	private ToolTipConfig createViewerTypeComboBoxToolTipConfig()
 	{
 		ToolTipConfig viewerTypeComboBoxToolTipConfig = new ToolTipConfig();  
-		viewerTypeComboBoxToolTipConfig.setTitleHtml("3D viewer selector");
-		viewerTypeComboBoxToolTipConfig.setBodyHtml(generateViewerTypeComboBoxTooltipTemplate());  
+		viewerTypeComboBoxToolTipConfig.setTitle("3D viewer selector");
+		viewerTypeComboBoxToolTipConfig.setBody(generateViewerTypeComboBoxTooltipTemplate());  
 		viewerTypeComboBoxToolTipConfig.setShowDelay(0);
 		viewerTypeComboBoxToolTipConfig.setDismissDelay(0);
 		return viewerTypeComboBoxToolTipConfig;

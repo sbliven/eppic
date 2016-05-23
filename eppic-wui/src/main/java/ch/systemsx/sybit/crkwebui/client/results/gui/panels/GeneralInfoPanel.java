@@ -39,7 +39,7 @@ public class GeneralInfoPanel extends FieldSet {
 	
 	public GeneralInfoPanel(PdbInfo pdbInfo){
 		
-		this.setHeadingHtml(StyleGenerator.defaultFontStyleString(
+		this.setHeading(StyleGenerator.defaultFontStyleString(
 				AppPropertiesManager.CONSTANTS.info_panel_general_info()));
 		 
 		this.setBorders(true);

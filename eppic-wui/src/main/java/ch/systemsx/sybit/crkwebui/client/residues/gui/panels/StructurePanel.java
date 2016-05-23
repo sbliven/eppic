@@ -77,7 +77,7 @@ public class StructurePanel extends FramedPanel
 	 */
 	public void fillHeader(String chainName) 
 	{
-		this.setHeadingHtml(StyleGenerator.defaultFontStyle(
+		this.setHeading(StyleGenerator.defaultFontStyle(
 				AppPropertiesManager.CONSTANTS.interfaces_residues_panel_structure() + " " + 
 									 EscapedStringGenerator.generateEscapedString(chainName)));
 	}

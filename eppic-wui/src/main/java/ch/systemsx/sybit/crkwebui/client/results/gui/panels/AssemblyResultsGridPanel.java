@@ -518,8 +518,8 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 	private ToolTipConfig createViewerTypeComboBoxToolTipConfig()
 	{
 		ToolTipConfig viewerTypeComboBoxToolTipConfig = new ToolTipConfig();  
-		viewerTypeComboBoxToolTipConfig.setTitleHtml("3D viewer selector");
-		viewerTypeComboBoxToolTipConfig.setBodyHtml(generateViewerTypeComboBoxTooltipTemplate());  
+		viewerTypeComboBoxToolTipConfig.setTitle("3D viewer selector");
+		viewerTypeComboBoxToolTipConfig.setBody(generateViewerTypeComboBoxTooltipTemplate());  
 		viewerTypeComboBoxToolTipConfig.setShowDelay(0);
 		viewerTypeComboBoxToolTipConfig.setDismissDelay(0);
 		return viewerTypeComboBoxToolTipConfig;
@@ -640,7 +640,7 @@ public class AssemblyResultsGridPanel extends VerticalLayoutContainer
 								AppPropertiesManager.CONSTANTS.info_panel_interface_pdb_identifier() + ": "));
 				ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML("Assembly " + assemblyID + " in ");// + pdbCode);
 				ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML("<a target='_blank' href='http://www.pdb.org/pdb/explore/explore.do?structureId="+pdbCode+"'>"+pdbCode+"</a>");
-				ResultsPanel.informationPanel.assemblyInfoPanel.setHeadingHtml("General Information");				
+				ResultsPanel.informationPanel.assemblyInfoPanel.setHeading("General Information");				
 			}
 		}); 
 		

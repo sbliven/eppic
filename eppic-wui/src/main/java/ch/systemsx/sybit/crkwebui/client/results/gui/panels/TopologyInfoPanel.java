@@ -24,7 +24,7 @@ public class TopologyInfoPanel extends FieldSet {
 	
 	public TopologyInfoPanel(PdbInfo pdbInfo){
 		
-		this.setHeadingHtml("Topology");
+		this.setHeading("Topology");
 		 
 		this.setBorders(true);
 		this.setWidth(PANEL_WIDTH);

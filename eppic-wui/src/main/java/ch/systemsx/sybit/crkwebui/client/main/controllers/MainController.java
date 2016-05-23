@@ -185,7 +185,7 @@ public class MainController
 						ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML("<a target='_blank' href='http://www.pdb.org/pdb/explore/explore.do?structureId="+ApplicationContext.getPdbInfo().getInputName()+"'>"+ApplicationContext.getPdbInfo().getInputName()+"</a>");
 					else if(ApplicationContext.getPdbInfo().getInputType() == InputType.FILE.getIndex()) //user uploaded jobs
 						ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML(ApplicationContext.getPdbInfo().getInputName());						
-					ResultsPanel.informationPanel.assemblyInfoPanel.setHeadingHtml("General Information");											
+					ResultsPanel.informationPanel.assemblyInfoPanel.setHeading("General Information");											
 					ResultsPanel.informationPanel.assemblyInfoPanel.assembly_info.setHTML("<table cellpadding=0 cellspacing=0><tr><td width='150px'><span class='eppic-general-info-label-new'>Assemblies</span></td><td><span class='eppic-general-info-label-value-new'>" + ApplicationContext.getPdbInfo().getAssemblies().size() + "</span></td></tr><tr><td><span class='eppic-general-info-label-new'>Interfaces</span></td><td><span class='eppic-general-info-label-value-new'><a href='" + GWT.getHostPageBaseURL() + "#interfaces/"+ApplicationContext.getSelectedJobId()+"'>" + num_interfaces + "</a></span></td></tr><tr><td><span class='eppic-general-info-label-new'>Interface clusters</span></td><td><span class='eppic-general-info-label-value-new'><a href='" + GWT.getHostPageBaseURL() + "#clusters/"+ApplicationContext.getSelectedJobId()+"'>" + ApplicationContext.getPdbInfo().getInterfaceClusters().size()+"</a></span></td></tr><tr><td><a href='" + PopupRunner.getLatticeGraphURL() + "' target='_blank'>View Unit Cell</a></td></tr></table>");	
 					ResultsPanel.informationPanel.removeTopologyPanel(ApplicationContext.getPdbInfo());
 					setExperimentalInfo();	
@@ -200,7 +200,7 @@ public class MainController
 							ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML("<a target='_blank' href='http://www.pdb.org/pdb/explore/explore.do?structureId="+ApplicationContext.getSelectedJobId()+"'>"+ApplicationContext.getPdbInfo().getInputName()+"</a>");
 						else if(ApplicationContext.getPdbInfo().getInputType() == InputType.FILE.getIndex()) //user uploaded jobs
 							ResultsPanel.headerPanel.pdbIdentifierPanel.pdbNameLabel.setHTML(ApplicationContext.getPdbInfo().getInputName());							
-						ResultsPanel.informationPanel.assemblyInfoPanel.setHeadingHtml("General Information");				
+						ResultsPanel.informationPanel.assemblyInfoPanel.setHeading("General Information");				
 						if(History.getToken().contains("clusters")){
 							ResultsPanel.headerPanel.pdbIdentifierPanel.informationLabel.setHTML("Interface Clusters of: ");
 							ResultsPanel.informationPanel.assemblyInfoPanel.assembly_info.setHTML("<table cellpadding=0 cellspacing=0><tr><td width='150px'><span class='eppic-general-info-label-new'>Assemblies</span></td><td><span class='eppic-general-info-label-value-new'><a href='" + GWT.getHostPageBaseURL() + "#id/"+ApplicationContext.getSelectedJobId()+"'>" + ApplicationContext.getPdbInfo().getAssemblies().size() + "</a></span></td></tr><tr><td><span class='eppic-general-info-label-new'>Interfaces</span></td><td><span class='eppic-general-info-label-value-new'><a href='" + GWT.getHostPageBaseURL() + "#interfaces/"+ApplicationContext.getSelectedJobId()+"'>" + num_interfaces + "</a></span></td></tr><tr><td><span class='eppic-general-info-label-new'>Interface clusters</span></td><td><span class='eppic-general-info-label-value-new'>" + ApplicationContext.getPdbInfo().getInterfaceClusters().size()+"</span></td></tr><tr><td><a href='" + PopupRunner.getLatticeGraphURL() + "' target='_blank'>View Unit Cell</a></td></tr></table>");
@@ -248,7 +248,7 @@ public class MainController
 							}
 						}
 						ResultsPanel.informationPanel.assemblyInfoPanel.assembly_info.setHTML(assembly_string);
-						ResultsPanel.informationPanel.assemblyInfoPanel.setHeadingHtml("Assembly " + assemblyID + " of " + assemblies.size());
+						ResultsPanel.informationPanel.assemblyInfoPanel.setHeading("Assembly " + assemblyID + " of " + assemblies.size());
 						ResultsPanel.informationPanel.addTopologyPanel(ApplicationContext.getPdbInfo());						
 						setExperimentalInfo();	
 					}
@@ -451,7 +451,7 @@ public class MainController
 	{
 		infoMessageBox = new Dialog();
 		
-		infoMessageBox.setHeadingHtml(EscapedStringGenerator.generateEscapedString(title));
+		infoMessageBox.setHeading(EscapedStringGenerator.generateEscapedString(title));
 		infoMessageBox.add(new HTMLPanel(EscapedStringGenerator.generateSafeHtml(message)));
 		
 		infoMessageBox.setHideOnButtonClick(true);

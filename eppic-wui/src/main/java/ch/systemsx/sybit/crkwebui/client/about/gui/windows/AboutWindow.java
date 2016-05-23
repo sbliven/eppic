@@ -25,7 +25,7 @@ public class AboutWindow extends ResizableWindow
 			  ABOUT_WINDOW_DEFAULT_HEIGHT,
 			  windowData);
 		
-		this.setHeadingHtml(AppPropertiesManager.CONSTANTS.about_window_title());
+		this.setHeading(AppPropertiesManager.CONSTANTS.about_window_title());
 		this.setHideOnButtonClick(true);
 		this.setModal(true);
 		this.setBlinkModal(true);
