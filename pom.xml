@@ -64,6 +64,11 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
+		<repository>
+			<id>sencha</id>
+			<url>https://maven.sencha.com/repo/gxt-gpl-release</url>
+			<snapshots><enabled>true</enabled></snapshots>
+		</repository>
 	</repositories>
 
 </project>
