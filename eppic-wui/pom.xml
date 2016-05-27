@@ -221,6 +221,8 @@
 				<configuration>
 					<runTarget>index.html</runTarget>
 					<extraJvmArgs>-Xmx2g</extraJvmArgs>
+					<!-- Minification setting: OBF/PRETTY/DETAILED -->
+					<style>OBF</style>
 				</configuration>
 			</plugin>
 			<plugin>
