@@ -31,6 +31,7 @@ import ch.systemsx.sybit.crkwebui.shared.model.Interface;
 import ch.systemsx.sybit.crkwebui.shared.model.Residue;
 import ch.systemsx.sybit.crkwebui.shared.model.PdbInfo;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
@@ -122,6 +123,7 @@ public class MainViewPort extends BorderLayoutContainer
 		BorderLayoutData northData = new BorderLayoutData(40);
 		northData.setMargins(new Margins(0));
 
+		boolean eppicExplorer = !mainController.getEppicExplorerUrl().isEmpty();
 		topPanel = new TopPanel();
 		this.setNorthWidget(topPanel, northData);
 		

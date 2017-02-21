@@ -49,7 +49,7 @@ public class NavigationPanel extends VBoxLayoutContainer
 	linksContainer.add(homeLink, new HorizontalLayoutData(-1,1));
 	linksContainer.add(createBreakLabel(), new HorizontalLayoutData(-1,1));
 	// Include advanced search if configured
-	String explorerUrl = ApplicationContext.getSettings().getEppicExplorerUrl();
+	String explorerUrl = "foo";//ApplicationContext.getSettings().getEppicExplorerUrl();
 	if(explorerUrl != null && !explorerUrl.isEmpty() ) {
 		linksContainer.add(advancedSearchLink, new HorizontalLayoutData(-1,1));
 		linksContainer.add(createBreakLabel(), new HorizontalLayoutData(-1,1));

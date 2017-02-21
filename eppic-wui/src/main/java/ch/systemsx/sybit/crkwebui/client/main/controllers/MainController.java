@@ -720,15 +720,22 @@ public class MainController
 	{
 		Window.setTitle(AppPropertiesManager.CONSTANTS.window_title_advanced_search());
 		ApplicationContext.setSelectedJobId("");
+		IFramePanel expolorerPanel = new IFramePanel(getEppicExplorerUrl(), true); 
+		displayPanelInCentralPanel(expolorerPanel);
+	}
+	
+	public String getEppicExplorerUrl() {
+		String eppicExplorerUrl = ApplicationContext.getSettings().getEppicExplorerUrl();
+		if( eppicExplorerUrl.isEmpty() ) {
+			return "";
+		}
 		String base_url_param = GWT.getHostPageBaseURL();
 		base_url_param = base_url_param.replace("http://", "");
 		base_url_param = base_url_param.replace("https://", "");
 		String remaining_chars = base_url_param.substring(base_url_param.indexOf("/"),base_url_param.length());
 		base_url_param = base_url_param.replace(remaining_chars, "");
-		IFramePanel expolorerPanel = new IFramePanel(ApplicationContext.getSettings().getEppicExplorerUrl()+"/?base_url="+base_url_param, true); 
-		displayPanelInCentralPanel(expolorerPanel);
+		return eppicExplorerUrl+"/?base_url="+base_url_param;
 	}
-	
 	
 	/**
 	 * Displays statistics panel.
@@ -967,6 +974,7 @@ public class MainController
 
 		autoRefreshMyJobs = new Timer()
 		{
+			@Override
 			public void run()
 			{
 				if((ApplicationContext.isDoStatusPanelRefreshing()) &&
