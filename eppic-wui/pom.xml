@@ -188,6 +188,12 @@
 			<artifactId>jetty-servlets</artifactId>
 			<version>9.2.12.v20150709</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-proxy</artifactId>
+			<version>9.2.12.v20150709</version>
+		</dependency>
 			
 		<!-- Test dependencies -->
 		<dependency>
